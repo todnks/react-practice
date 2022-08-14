@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style/core/index.scss'
 import Header from './component/Header';
+import Listitem from './component/Listitem';
 class App extends Component {
   constructor() {
     super();
@@ -26,7 +27,7 @@ class App extends Component {
     const list = [...this.state.todos, newTodo]
     localStorage.setItem('list', JSON.stringify(list))
   }
-  listcheck (e) {
+  async listcheck (e) {
     const list = this.state.todos[e]
     if (list.check === false) {
       list.check = true
@@ -42,8 +43,8 @@ class App extends Component {
   render() { 
     return (
       <div className="content">
-        <div className='Header'>
-        <h1>todolist</h1>
+        <Listitem/>
+        <div>
         <Header
           todoListinsert={this.todoListinsert}
           />
@@ -59,7 +60,7 @@ class App extends Component {
               )}
               {todo.check || (
                 <div className='data'><p>{todo.text}</p><span>x</span></div>
-              )}
+              )} 
             </li>
           ))}
         </ul>
