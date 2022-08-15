@@ -1,72 +1,64 @@
-import React, { Component } from 'react';
-import './style/core/index.scss'
+import './style/core/index.scss';
 import Header from './component/Header';
-import Listitem from './component/Listitem';
-class App extends Component {
-  constructor() {
-    super();
-    const list = JSON.parse(localStorage.getItem('list'))
-    this.state = { todos: [], idx: 0}
-    if (list) this.state = { todos: list, idx: list.length};
-    this.todoListinsert = this.todoListinsert.bind(this);
-    this.listcheck = this.listcheck.bind(this);
-  }
-  todoListinsert (e) {
-    e.preventDefault();
-    const newTodo = {
-      id: this.state.idx,
-      text: e.target[0].value,
-      check: false
-    };
-    if(!newTodo.text) return
-    this.setState((state) =>({
-      todos: [...state.todos, newTodo],
-      idx: state.idx + 1,
-      check: false
-    }));
-    const list = [...this.state.todos, newTodo]
-    localStorage.setItem('list', JSON.stringify(list))
-  }
-  async listcheck (e) {
-    const list = this.state.todos[e]
-    if (list.check === false) {
-      list.check = true
-    }
-    else {
-      list.check = false
-    }
-    localStorage.setItem('list', JSON.stringify(this.state.todos))
-    this.setState(() => ({
-      ...JSON.parse(localStorage.getItem('list'))
-    }));
-  }
-  render() { 
-    return (
-      <div className="content">
-        <Listitem/>
-        <div>
-        <Header
-          todoListinsert={this.todoListinsert}
-          />
-        </div>
-        <ul className='list'>
-          {this.state.todos.map((todo) => (
-            <li
-            key={todo.id}
-            onClick={() => this.listcheck(todo.id)}
-            >
-              {todo.check && (
-                <div className='data data--check'><p>{todo.text}</p><span>o</span></div>
-              )}
-              {todo.check || (
-                <div className='data'><p>{todo.text}</p><span>x</span></div>
-              )} 
-            </li>
+import styled from 'styled-components';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+const Content = styled.div`
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  height: 600px;
+  margin-top: 100px;
+  padding: 30px;
+  list-style: none;
+`;
+const Table = styled.ul`
+  text-align: left;
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+`;
+const List = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr;
+  font-size: 19px;
+  border-bottom: 1px solid #000;
+`;
+function App() {
+  let [list, setList] = useState();
+  const getData = () => {
+    axios
+      .get('https://mariadb-nodejs.herokuapp.com/api/v1/board/list')
+      .then(({ data }) => {
+        setList(data.list);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+  return (
+    <Content>
+      <Header />
+      <Table>
+        <List>
+          <div>번호</div>
+          <div>작성자</div>
+          <div>글제목</div>
+          <div>작성일자</div>
+        </List>
+        {list &&
+          list.map((data) => (
+            <List key={data.idx}>
+              <div>{data.idx}</div>
+              <div>{data.writer}</div>
+              <div>{data.content}</div>
+              <div>{data.registDate}</div>
+            </List>
           ))}
-        </ul>
-      </div>
-    );
-  }
+      </Table>
+    </Content>
+  );
 }
 
 export default App;
