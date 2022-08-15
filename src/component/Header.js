@@ -1,9 +1,9 @@
-const Header = ({todoListinsert}) => {
+import { Link } from 'react-router-dom';
+function Header() {
   return (
-  <form onSubmit={todoListinsert}>
-    <input/>
-    <button>입력</button>  
-  </form>
+    <div>
+      <Link to='/login'>로그인</Link>
+    </div>
   );
 }
 
