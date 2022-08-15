@@ -1,23 +1,24 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-function Login() {
+function Member() {
   const [id, Setid] = useState();
   const [pw, Setpw] = useState();
-  function Signin(e) {
+  const [name, Setname] = useState();
+  const [email, Setemail] = useState();
+  function Login(e) {
     e.preventDefault();
-    const member = { id: id, password: pw };
-    if (!member.id || !member.password) {
-      alert('아이디 또는 비밀번호를 입력해주세요');
-      return;
+    const member = { id: id, password: pw, name: name, email: email };
+    if (!member.id || !member.password || !member.name || !member.email) {
+      alert('빈칸을 채워주세요');
     }
     axios
-      .post('/member/signin', {
+      .post('/member/signup', {
         ...member,
       })
       .then(function (res) {
         console.log(res);
-        alert('로그인성공');
+        alert('회원가입성공');
       })
       .catch(function ({ response }) {
         alert(response.data.error);
@@ -26,14 +27,16 @@ function Login() {
   }
   return (
     <div>
-      <form onSubmit={Signin}>
+      <form onSubmit={Login}>
         <input placeholder='아이디' onChange={(e) => Setid(e.target.value)} />
         <input placeholder='비밀번호' onChange={(e) => Setpw(e.target.value)} />
-        <button>로그인</button>
+        <input placeholder='name' onChange={(e) => Setname(e.target.value)} />
+        <input placeholder='email' onChange={(e) => Setemail(e.target.value)} />
+        <input type='submit' value='회원가입' />
       </form>
       <Link to='/'>홈으로</Link>
     </div>
   );
 }
 
-export default Login;
+export default Member;
