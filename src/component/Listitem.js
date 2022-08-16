@@ -27,23 +27,23 @@ function ListItem() {
     getData();
   }, []);
   return (
-      <Table>
-        <List>
-          <div>번호</div>
-          <div>작성자</div>
-          <div>글제목</div>
-          <div>작성일자</div>
-        </List>
-        {list &&
-          list.map((data) => (
-            <List key={data.idx}>
-              <div>{data.idx}</div>
-              <div>{data.writer}</div>
-              <div>{data.content}</div>
-              <div>{data.registDate}</div>
-            </List>
-          ))}
-      </Table>
+    <Table>
+      <List>
+        <div>번호</div>
+        <div>작성자</div>
+        <div>글제목</div>
+        <div>작성일자</div>
+      </List>
+      {list &&
+        list.map((data) => (
+          <List key={data.idx}>
+            <div>{data.idx}</div>
+            <div>{data.writer}</div>
+            <div>{data.content}</div>
+            <div>{data.registDate}</div>
+          </List>
+        ))}
+    </Table>
   );
 }
 

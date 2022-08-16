@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ListItem from './component/ListItem';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Signup from './pages/Signup'
+import Signup from './pages/Signup';
 const Content = styled.div`
   width: 500px;
   margin: auto;
@@ -18,13 +18,13 @@ const Content = styled.div`
 function App() {
   return (
     <Content>
-    <Header />
-    <Routes>
-      <Route path='/' element={ListItem()}/>
-      <Route path='/login' element={Login()}/>
-      <Route path='/signup' element={Signup()}/>
-    </Routes>
-  </Content>
+      <Header />
+      <Routes>
+        <Route path='/' element={ListItem()} />
+        <Route path='/login' element={Login()} />
+        <Route path='/signup' element={Signup()} />
+      </Routes>
+    </Content>
   );
 }
 
