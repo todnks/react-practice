@@ -15,16 +15,30 @@ const List = styled.div`
   border-bottom: 1px solid #000;
 `;
 function ListItem() {
-  let [list, setList] = useState();
-  const getData = () => {
-    axios
-      .get('https://mariadb-nodejs.herokuapp.com/api/v1/board/list')
-      .then(({ data }) => {
-        setList(data.list);
-      });
+  const [list, setList] = useState();
+  const [count, setCount] = useState(null);
+  const maxCount = Math.ceil(count / 10);
+  let page = 1;
+  let btn = [];
+  const getList = async (e) => {
+    if (e) {
+      if (page !== Number(e.target.value)) {
+        page = Number(e.target.value);
+      }
+    }
+    await axios.get(`/board/list?page=${page}`).then(({ data }) => {
+      setList(data.list);
+      setCount(data.count);
+    });
+  };
+  const setBtn = () => {
+    for (let i = 1; i <= maxCount; i++) {
+      btn.push(i);
+    }
+    return btn;
   };
   useEffect(() => {
-    getData();
+    getList();
   }, []);
   return (
     <Table>
@@ -42,6 +56,10 @@ function ListItem() {
             <div>{data.content}</div>
             <div>{data.registDate}</div>
           </List>
+        ))}
+      {btn &&
+        setBtn().map((number) => (
+          <input type='submit' onClick={getList} value={number} />
         ))}
     </Table>
   );

@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 function Header() {
   let [member, setMember] = useState();
   const getData = () => {
     axios.get('/member/getMemberInfo').then(({ data }) => {
-      console.log(data);
       if (data === null) {
         setMember(null);
         return;
@@ -33,8 +31,8 @@ function Header() {
         </div>
       )) || (
         <div>
-          <Link to='/login'>로그인</Link>
-          <Link to='/signup'>회원가입</Link>
+          <a href='/login'>로그인</a>
+          <a href='/signup'>회원가입</a>
         </div>
       )}
     </div>
