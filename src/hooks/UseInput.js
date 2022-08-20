@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useState } from 'react';
 
-function useInput(initState) {
+function UseInput(initState) {
   const [value, setValue] = useState(initState);
   const onChange = useCallback(({ target }) => {
     setValue(target.value);
@@ -13,4 +13,4 @@ function useInput(initState) {
   };
 }
 
-export default useInput;
+export default UseInput;
