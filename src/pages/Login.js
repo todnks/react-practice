@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-function Login({ setLogin, member }) {
+function Login({ setMember, member }) {
   function Signin(e) {
     e.preventDefault();
     if (!member.id || !member.password) {
@@ -11,7 +11,7 @@ function Login({ setLogin, member }) {
       .post('/member/signin', {
         ...member,
       })
-      .then(function (res) {
+      .then(function () {
         alert('로그인성공');
       })
       .catch(function ({ response }) {
@@ -24,11 +24,11 @@ function Login({ setLogin, member }) {
       <form onSubmit={Signin}>
         <input
           placeholder='아이디'
-          onChange={(e) => setLogin({ id: e.target.value })}
+          onChange={({ target }) => setMember({ id: target.value })}
         />
         <input
           placeholder='비밀번호'
-          onChange={(e) => setLogin({ password: e.target.value })}
+          onChange={({ target }) => setMember({ password: target.value })}
         />
         <button>로그인</button>
       </form>

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-function Signup({ setLogin, member }) {
+function Signup({ setMember, member }) {
   const Input = styled.input``;
-  function Login(e) {
-    e.preventDefault();
+  function signUp(event) {
+    event.preventDefault();
     if (!Object.values(member)) {
       alert('빈칸을 채워주세요');
     }
@@ -12,7 +12,7 @@ function Signup({ setLogin, member }) {
       .post('/member/signup', {
         ...member,
       })
-      .then(function (res) {
+      .then(function () {
         alert('회원가입성공');
       })
       .catch(function ({ response }) {
@@ -22,22 +22,22 @@ function Signup({ setLogin, member }) {
   }
   return (
     <div>
-      <form onSubmit={Login}>
+      <form onSubmit={signUp}>
         <Input
           placeholder='아이디'
-          onChange={(e) => setLogin({ id: e.target.value })}
+          onChange={({ target }) => setMember({ id: target.value })}
         />
         <Input
           placeholder='비밀번호'
-          onChange={(e) => setLogin({ password: e.target.value })}
+          onChange={({ target }) => setMember({ password: target.value })}
         />
         <Input
           placeholder='name'
-          onChange={(e) => setLogin({ name: e.target.value })}
+          onChange={({ target }) => setMember({ name: target.value })}
         />
         <Input
           placeholder='email'
-          onChange={(e) => setLogin({ email: e.target.value })}
+          onChange={({ target }) => setMember({ email: target.value })}
         />
         <Input type='submit' value='회원가입' />
       </form>

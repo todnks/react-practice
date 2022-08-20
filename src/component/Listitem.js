@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-
 const Table = styled.ul`
   text-align: left;
   width: 70%;
@@ -19,11 +18,11 @@ function ListItem() {
   const [count, setCount] = useState(null);
   const maxCount = Math.ceil(count / 10);
   let page = 1;
-  let btn = [];
-  const getList = async (e) => {
-    if (e) {
-      if (page !== Number(e.target.value)) {
-        page = Number(e.target.value);
+  let pagiNationBtn = [];
+  const getListItem = async (nowpage) => {
+    if (nowpage) {
+      if (page !== Number(nowpage.target.value)) {
+        page = Number(nowpage.target.value);
       }
     }
     await axios.get(`/board/list?page=${page}`).then(({ data }) => {
@@ -32,14 +31,14 @@ function ListItem() {
     });
   };
   const setBtn = () => {
-    for (let i = 1; i <= maxCount; i++) {
-      btn.push(i);
+    for (let btnSize = 1; btnSize <= maxCount; btnSize++) {
+      pagiNationBtn.push(btnSize);
     }
-    return btn;
+    return pagiNationBtn;
   };
   useEffect(() => {
-    getList();
-  }, []);
+    getListItem();
+  });
   return (
     <Table>
       <List>
@@ -49,17 +48,17 @@ function ListItem() {
         <div>작성일자</div>
       </List>
       {list &&
-        list.map((data) => (
-          <List key={data.idx}>
-            <div>{data.idx}</div>
-            <div>{data.writer}</div>
-            <div>{data.content}</div>
-            <div>{data.registDate}</div>
+        list.map((list) => (
+          <List key={list.idx}>
+            <div>{list.idx}</div>
+            <div>{list.writer}</div>
+            <div>{list.content}</div>
+            <div>{list.registDate}</div>
           </List>
         ))}
-      {btn &&
+      {pagiNationBtn &&
         setBtn().map((number) => (
-          <input type='submit' onClick={getList} value={number} />
+          <input type='submit' onClick={getListItem} value={number} />
         ))}
     </Table>
   );

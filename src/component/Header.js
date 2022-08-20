@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 function Header() {
   let [member, setMember] = useState();
-  const getData = () => {
+  const getMemberInfo = () => {
     axios.get('/member/getMemberInfo').then(({ data }) => {
       if (data === null) {
         setMember(null);
@@ -12,13 +12,13 @@ function Header() {
     });
   };
   function logout() {
-    axios.get('/member/logout').then((res) => {
+    axios.get('/member/logout').then(() => {
       alert('로그아웃');
       setMember(null);
     });
   }
   useEffect(() => {
-    getData();
+    getMemberInfo();
   }, []);
   return (
     <div>

@@ -5,7 +5,7 @@ import ListItem from './component/ListItem';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import useInput from './hooks/usehook';
+import memberHook from './hooks/memberHook';
 const Content = styled.div`
   width: 500px;
   margin: auto;
@@ -17,14 +17,14 @@ const Content = styled.div`
   list-style: none;
 `;
 function App() {
-  const inputText = useInput('');
+  const MemberHook = memberHook('');
   return (
     <Content>
       <Header />
       <Routes>
         <Route path='/' element={ListItem()} />
-        <Route path='/login' element={Login({ ...inputText })} />
-        <Route path='/signup' element={Signup({ ...inputText })} />
+        <Route path='/login' element={Login({ ...MemberHook })} />
+        <Route path='/signup' element={Signup({ ...MemberHook })} />
       </Routes>
     </Content>
   );
