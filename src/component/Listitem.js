@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 const Table = styled.ul`
   text-align: left;
   width: 70%;
@@ -13,9 +13,7 @@ const List = styled.div`
   font-size: 19px;
   border-bottom: 1px solid #000;
 `;
-function ListItem() {
-  const [list, setList] = useState();
-  const [count, setCount] = useState(null);
+function ListItem({ setList, list, count, setCount }) {
   const maxCount = Math.ceil(count / 10);
   let page = 1;
   let pagiNationBtn = [];
@@ -38,7 +36,7 @@ function ListItem() {
   };
   useEffect(() => {
     getListItem();
-  });
+  }, []);
   return (
     <Table>
       <List>
