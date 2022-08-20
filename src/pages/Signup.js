@@ -1,15 +1,11 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-function Member() {
-  const [id, Setid] = useState();
-  const [pw, Setpw] = useState();
-  const [name, Setname] = useState();
-  const [email, Setemail] = useState();
+import styled from 'styled-components';
+function Signup({ setLogin, member }) {
+  const Input = styled.input``;
   function Login(e) {
     e.preventDefault();
-    const member = { id: id, password: pw, name: name, email: email };
-    if (!member.id || !member.password || !member.name || !member.email) {
+    if (!Object.values(member)) {
       alert('빈칸을 채워주세요');
     }
     axios
@@ -17,7 +13,6 @@ function Member() {
         ...member,
       })
       .then(function (res) {
-        console.log(res);
         alert('회원가입성공');
       })
       .catch(function ({ response }) {
@@ -28,15 +23,27 @@ function Member() {
   return (
     <div>
       <form onSubmit={Login}>
-        <input placeholder='아이디' onChange={(e) => Setid(e.target.value)} />
-        <input placeholder='비밀번호' onChange={(e) => Setpw(e.target.value)} />
-        <input placeholder='name' onChange={(e) => Setname(e.target.value)} />
-        <input placeholder='email' onChange={(e) => Setemail(e.target.value)} />
-        <input type='submit' value='회원가입' />
+        <Input
+          placeholder='아이디'
+          onChange={(e) => setLogin({ id: e.target.value })}
+        />
+        <Input
+          placeholder='비밀번호'
+          onChange={(e) => setLogin({ password: e.target.value })}
+        />
+        <Input
+          placeholder='name'
+          onChange={(e) => setLogin({ name: e.target.value })}
+        />
+        <Input
+          placeholder='email'
+          onChange={(e) => setLogin({ email: e.target.value })}
+        />
+        <Input type='submit' value='회원가입' />
       </form>
       <Link to='/'>홈으로</Link>
     </div>
   );
 }
 
-export default Member;
+export default Signup;
