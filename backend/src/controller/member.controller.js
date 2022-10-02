@@ -49,7 +49,7 @@ export default class MemberController {
       });
       return;
     }
-    req.session.destroy(function () {
+    req.session.destroy(() => {
       req.session;
     });
     res.json(true);
