@@ -2,7 +2,7 @@ import pool from '../database/index.js';
 
 export default class BoardModel {
   static async list() {
-    const [rows] = await pool.query(
+    const rows = await pool.query(
       `
       SELECT * FROM board 
       `

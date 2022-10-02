@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 function Signup({ setMember, member }) {
-  const Input = styled.input``;
   function signUp(event) {
     event.preventDefault();
     if (!Object.values(member)) {
@@ -23,23 +21,23 @@ function Signup({ setMember, member }) {
   return (
     <div>
       <form onSubmit={signUp}>
-        <Input
+        <input
           placeholder='아이디'
           onChange={({ target }) => setMember({ id: target.value })}
         />
-        <Input
+        <input
           placeholder='비밀번호'
           onChange={({ target }) => setMember({ password: target.value })}
         />
-        <Input
+        <input
           placeholder='name'
           onChange={({ target }) => setMember({ name: target.value })}
         />
-        <Input
+        <input
           placeholder='email'
           onChange={({ target }) => setMember({ email: target.value })}
         />
-        <Input type='submit' value='회원가입' />
+        <input type='submit' value='회원가입' />
       </form>
       <Link to='/'>홈으로</Link>
     </div>

@@ -23,9 +23,9 @@ function ListItem({ setList, list, count, setCount }) {
         page = Number(nowpage.target.value);
       }
     }
-    await axios.get(`/board/list?page=${page}`).then(({ data }) => {
-      setList(data.list);
-      setCount(data.count);
+    await axios.get(`/board/list`).then(({ data }) => {
+      setList(data);
+      setCount(data.length);
     });
   };
   const setBtn = () => {
@@ -36,7 +36,7 @@ function ListItem({ setList, list, count, setCount }) {
   };
   useEffect(() => {
     getListItem();
-  }, []);
+  });
   return (
     <Table>
       <List>
@@ -47,11 +47,11 @@ function ListItem({ setList, list, count, setCount }) {
       </List>
       {list &&
         list.map((list) => (
-          <List key={list.idx}>
-            <div>{list.idx}</div>
+          <List key={list.id}>
+            <div>{list.id}</div>
             <div>{list.writer}</div>
             <div>{list.content}</div>
-            <div>{list.registDate}</div>
+            <div>{list.registerDate}</div>
           </List>
         ))}
       {pagiNationBtn &&

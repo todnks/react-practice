@@ -1,6 +1,6 @@
 import MemberModel from '../model/member.model.js';
 import { validationResult } from 'express-validator';
-import bcrypt from 'bcrypt';
+import bcrypt, { hash } from 'bcrypt';
 
 const saltRounds = 10;
 
@@ -29,24 +29,17 @@ export default class MemberController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
-    const findMember = await MemberModel.findMember(req.body.id);
+    const findMember = await MemberModel.login({ ...req.body });
     if (
       !findMember ||
       !bcrypt.compareSync(req.body.password, findMember.password)
     ) {
-      res.json({
-        errors: 'id 혹은 비번 틀림',
-      });
+      res.json(false);
       return;
     }
-    req.session.regenerate(function (err) {
-      if (err) next(err);
-      req.session.user = { ...findMember };
-      req.session.save(function (err) {
-        if (err) return next(err);
-        res.json(true);
-      });
+    req.session.user = { ...findMember };
+    req.session.save(() => {
+      res.send(true);
     });
   }
   static async logout(req, res) {
@@ -56,7 +49,18 @@ export default class MemberController {
       });
       return;
     }
-    req.session.user = {};
+    req.session.destroy(function () {
+      req.session;
+    });
     res.json(true);
+  }
+  static async memberInfo(req, res) {
+    console.log(req.session);
+    if (!req.session.user) {
+      res.json(null);
+      return;
+    }
+    const findMember = await MemberModel.findMember(req.session.user.userId);
+    res.json(findMember);
   }
 }

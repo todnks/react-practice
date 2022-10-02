@@ -1,22 +1,26 @@
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function Login({ setMember, member }) {
+  let navigate = useNavigate();
   function Signin(e) {
+    console.log(member);
     e.preventDefault();
     if (!member.id || !member.password) {
       alert('아이디 또는 비밀번호를 입력해주세요');
       return;
     }
     axios
-      .post('/member/signin', {
+      .post('/member/login', {
         ...member,
       })
-      .then(function () {
+      .then(function ({ data }) {
+        console.log(data);
+        if (!data) {
+          alert('로그인실패');
+          return;
+        }
         alert('로그인성공');
-      })
-      .catch(function ({ response }) {
-        alert(response.data.error);
-        return;
+        navigate('/');
       });
   }
   return (

@@ -3,10 +3,8 @@ import { validationResult } from 'express-validator';
 
 export default class BoardController {
   static async list(req, res) {
-    const { idx } = req.params;
-    const response = await boardView({ idx });
-
-    res.json(response);
+    const list = await boardModel.list();
+    res.json(list);
   }
 
   static async write(req, res) {

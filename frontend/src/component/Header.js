@@ -4,7 +4,8 @@ function Header() {
   let [member, setMember] = useState();
   const getMemberInfo = () => {
     axios.get('/member/getMemberInfo').then(({ data }) => {
-      if (data === null) {
+      console.log(data);
+      if (!data) {
         setMember(null);
         return;
       }

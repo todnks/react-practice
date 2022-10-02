@@ -24,14 +24,13 @@ export default class MemberModel {
     return rows;
   }
 
-  static async login({ id, password }) {
+  static async login({ id }) {
     const [rows] = await pool.query(
       `
-      SELECT * FROM member where id = ? and password = ?
+      SELECT * FROM member where userId = ?
       `,
-      [id, password]
+      [id]
     );
-    console.log(rows);
     return rows;
   }
 }
