@@ -1,12 +1,15 @@
 import './style/core/index.scss';
-import Header from './component/Header';
 import styled from 'styled-components';
-import ListItem from './component/Listitem';
+import List from './component/List';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import memberHook from './hooks/MemberHooks';
 import listHook from './hooks/ListHook';
+import Board from './pages/Board';
+import BoardWrite from './pages/BoardWrite';
+import WriteHook from './hooks/WriteHook';
+import BoardUpdate from './pages/Boardupdate';
 const Content = styled.div`
   width: 500px;
   margin: auto;
@@ -17,19 +20,25 @@ const Content = styled.div`
   padding: 30px;
   list-style: none;
 `;
-function App() {
+const App = () => {
   const MemberHook = memberHook('');
-  const Listkhook = listHook('');
+  const Listkhook = listHook([]);
+  const Writehook = WriteHook([]);
   return (
     <Content>
-      <Header />
       <Routes>
-        <Route path='/' element={ListItem({ ...Listkhook })} />
-        <Route path='/login' element={Login({ ...MemberHook })} />
-        <Route path='/signup' element={Signup({ ...MemberHook })} />
+        <Route path='/' element={<List {...Listkhook} />} />
+        <Route path='/board/:id' element={<Board />} />
+        <Route
+          path='/board/update/:id'
+          element={<BoardUpdate {...Writehook} />}
+        />
+        <Route path='/board/write' element={<BoardWrite {...Writehook} />} />
+        <Route path='/signup' element={<Signup {...MemberHook} />} />
+        <Route path='/login' element={<Login {...MemberHook} />} />
       </Routes>
     </Content>
   );
-}
+};
 
 export default App;
