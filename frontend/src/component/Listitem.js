@@ -1,64 +1,32 @@
 import styled from 'styled-components';
-import axios from 'axios';
-import { useEffect } from 'react';
-const Table = styled.ul`
-  text-align: left;
-  width: 70%;
-  margin: auto;
-  margin-top: 30px;
-`;
+import { Link } from 'react-router-dom';
+
 const List = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1.5fr 1fr;
   font-size: 19px;
   border-bottom: 1px solid #000;
 `;
-function ListItem({ setList, list, count, setCount }) {
-  const maxCount = Math.ceil(count / 10);
-  let page = 1;
-  let pagiNationBtn = [];
-  const getListItem = async (nowpage) => {
-    if (nowpage) {
-      if (page !== Number(nowpage.target.value)) {
-        page = Number(nowpage.target.value);
-      }
-    }
-    await axios.get(`/board/list`).then(({ data }) => {
-      setList(data);
-      setCount(data.length);
-    });
-  };
-  const setBtn = () => {
-    for (let btnSize = 1; btnSize <= maxCount; btnSize++) {
-      pagiNationBtn.push(btnSize);
-    }
-    return pagiNationBtn;
-  };
-  useEffect(() => {
-    getListItem();
-  });
+
+function ListItem(props) {
   return (
-    <Table>
+    <>
       <List>
-        <div>번호</div>
-        <div>작성자</div>
-        <div>글제목</div>
-        <div>작성일자</div>
+        <div>{props.id}</div>
+        <div>{props.writer}</div>
+        <Link to={`/board/${props.id}`}>{props.content}</Link>
+        <div>{props.registerDate}</div>
       </List>
-      {list &&
-        list.map((list) => (
-          <List key={list.id}>
-            <div>{list.id}</div>
-            <div>{list.writer}</div>
-            <div>{list.content}</div>
-            <div>{list.registerDate}</div>
-          </List>
-        ))}
-      {pagiNationBtn &&
-        setBtn().map((number) => (
-          <input type='submit' onClick={getListItem} value={number} />
-        ))}
-    </Table>
+      {/* {pagiNationBtn &&
+          setBtn().map((number, key) => (
+            <input
+              type='submit'
+              onClick={getListItem}
+              value={number}
+              key={key}
+            />
+          ))} */}
+    </>
   );
 }
 
