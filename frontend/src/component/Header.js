@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-function Header() {
+import { Link } from 'react-router-dom';
+const Header = () => {
   let [member, setMember] = useState();
   const getMemberInfo = () => {
     axios.get('/member/getMemberInfo').then(({ data }) => {
-      console.log(data);
       if (!data) {
         setMember(null);
         return;
@@ -12,12 +12,12 @@ function Header() {
       setMember(data);
     });
   };
-  function logout() {
+  const logout = () => {
     axios.get('/member/logout').then(() => {
       alert('로그아웃');
       setMember(null);
     });
-  }
+  };
   useEffect(() => {
     getMemberInfo();
   }, []);
@@ -26,18 +26,18 @@ function Header() {
       {(member && (
         <div>
           <div>이름:{member.name}</div>
-          <div>아이디:{member.id}</div>
-          <div>email:{member.email}</div>
+          <div>아이디:{member.userId}</div>
           <button onClick={logout}>로그아웃</button>
+          <Link to='/board/write'>글쓰기</Link>
         </div>
       )) || (
         <div>
-          <a href='/login'>로그인</a>
-          <a href='/signup'>회원가입</a>
+          <Link to='/login'>로그인</Link>
+          <Link to='/signup'>회원가입</Link>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default Header;
