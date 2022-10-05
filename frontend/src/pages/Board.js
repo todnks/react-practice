@@ -16,18 +16,18 @@ const List = styled.div`
   font-size: 19px;
   border-bottom: 1px solid #000;
 `;
-function Board() {
+const Board = () => {
   const [board, setBoard] = useState();
   const [member, setmember] = useState();
   let navigate = useNavigate();
   let nowpage = useParams();
-  async function getviewItem() {
+  const getviewItem = async () => {
     const { data } = await axios.get('/member/getMemberInfo');
 
     const boarddata = await axios.get('/board/view', { params: nowpage });
     setmember(data);
     setBoard(boarddata.data);
-  }
+  };
   const Delete = async () => {
     await axios.delete('/board/delete', { params: nowpage });
     alert('글삭제완료');
@@ -56,6 +56,6 @@ function Board() {
       )}
     </>
   );
-}
+};
 
 export default Board;

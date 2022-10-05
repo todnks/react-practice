@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function BoardUpdate({ setBoard, board }) {
+const BoardUpdate = ({ setBoard, board }) => {
   let navigate = useNavigate();
   const { id } = useParams();
   const update = () => {
@@ -11,7 +11,7 @@ function BoardUpdate({ setBoard, board }) {
         ...board,
         idx: id,
       })
-      .then(function ({ data }) {
+      .then(({ data }) => {
         if (!data) {
           alert('글수정 실패');
           return;
@@ -35,6 +35,6 @@ function BoardUpdate({ setBoard, board }) {
       <Link to='/'>홈으로</Link>
     </div>
   );
-}
+};
 
 export default BoardUpdate;

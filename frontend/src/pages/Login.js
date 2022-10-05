@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-function Login({ setMember, member }) {
+const Login = ({ setMember, member }) => {
   let navigate = useNavigate();
-  function signin() {
+  const signin = () => {
     if (!member.id || !member.password) {
       alert('아이디 또는 비밀번호를 입력해주세요');
       return;
@@ -11,7 +11,7 @@ function Login({ setMember, member }) {
       .post('/member/login', {
         ...member,
       })
-      .then(function ({ data }) {
+      .then(({ data }) => {
         if (!data) {
           alert('로그인실패');
           return;
@@ -19,7 +19,7 @@ function Login({ setMember, member }) {
         alert('로그인성공');
         navigate('/');
       });
-  }
+  };
   return (
     <div>
       <div>
@@ -36,6 +36,6 @@ function Login({ setMember, member }) {
       <Link to='/'>홈으로</Link>
     </div>
   );
-}
+};
 
 export default Login;

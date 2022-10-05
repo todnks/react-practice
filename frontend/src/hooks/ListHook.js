@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useState } from 'react';
 
-function ListHook(initState) {
+const ListHook = (initState) => {
   const [list, setlist] = useState(null);
   const [count, setcount] = useState(null);
   const setList = useCallback((list) => {
@@ -17,6 +17,6 @@ function ListHook(initState) {
     count,
     setCount,
   };
-}
+};
 
 export default ListHook;

@@ -8,7 +8,7 @@ const List = styled.div`
   border-bottom: 1px solid #000;
 `;
 
-function ListItem(props) {
+const ListItem = (props) => {
   return (
     <>
       <List>
@@ -28,6 +28,6 @@ function ListItem(props) {
           ))} */}
     </>
   );
-}
+};
 
 export default ListItem;

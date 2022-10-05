@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useState } from 'react';
 
-function WriteHook(initState) {
+const WriteHook = (initState) => {
   const [board, setData] = useState(initState);
   const boardParams = { title: '', content: '' };
   const setBoard = useCallback((target) => {
@@ -17,6 +17,6 @@ function WriteHook(initState) {
     setData,
     board,
   };
-}
+};
 
 export default WriteHook;

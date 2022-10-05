@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useState } from 'react';
 
-function MemberHook(initState) {
+const MemberHook = (initState) => {
   const [member, setData] = useState(initState);
   const memberParams = { id: '', password: '', name: '', email: '' };
   const setMember = useCallback((target) => {
@@ -17,6 +17,6 @@ function MemberHook(initState) {
     setData,
     member,
   };
-}
+};
 
 export default MemberHook;

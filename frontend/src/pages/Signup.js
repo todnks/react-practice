@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-function Signup({ setMember, member }) {
-  function signup(event) {
+const Signup = ({ setMember, member }) => {
+  const signup = (event) => {
     event.preventDefault();
     if (!Object.values(member)) {
       alert('빈칸을 채워주세요');
@@ -10,14 +10,14 @@ function Signup({ setMember, member }) {
       .post('/member/signup', {
         ...member,
       })
-      .then(function () {
+      .then(() => {
         alert('회원가입성공');
       })
-      .catch(function ({ response }) {
+      .catch(({ response }) => {
         alert(response.data.error);
         return;
       });
-  }
+  };
   return (
     <div>
       <input
@@ -36,6 +36,6 @@ function Signup({ setMember, member }) {
       <Link to='/'>홈으로</Link>
     </div>
   );
-}
+};
 
 export default Signup;

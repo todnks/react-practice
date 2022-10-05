@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function BoardWrite({ setBoard, board }) {
+const BoardWrite = ({ setBoard, board }) => {
   const [member, setmember] = useState();
   let navigate = useNavigate();
   const userinfo = () => {
@@ -22,7 +22,7 @@ function BoardWrite({ setBoard, board }) {
         name: member.name,
         id: member.id,
       })
-      .then(function ({ data }) {
+      .then(({ data }) => {
         if (!data) {
           alert('글쓰기 실패');
           return;
@@ -48,6 +48,6 @@ function BoardWrite({ setBoard, board }) {
       <Link to='/'>홈으로</Link>
     </div>
   );
-}
+};
 
 export default BoardWrite;

@@ -6,7 +6,7 @@ const List = styled.div`
   font-size: 19px;
   border-bottom: 1px solid #000;
 `;
-function Board(list) {
+const Board = (list) => {
   return (
     <>
       {list && (
@@ -19,6 +19,6 @@ function Board(list) {
       )}
     </>
   );
-}
+};
 
 export default Board;
