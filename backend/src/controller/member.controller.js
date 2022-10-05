@@ -29,7 +29,7 @@ export default class MemberController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const findMember = await MemberModel.login({ ...req.body });
+    const findMember = await MemberModel.findMember(req.body.id);
     if (
       !findMember ||
       !bcrypt.compareSync(req.body.password, findMember.password)
@@ -55,7 +55,6 @@ export default class MemberController {
     res.json(true);
   }
   static async memberInfo(req, res) {
-    console.log(req.session);
     if (!req.session.user) {
       res.json(null);
       return;
