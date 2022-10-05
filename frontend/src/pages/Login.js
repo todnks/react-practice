@@ -2,9 +2,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 function Login({ setMember, member }) {
   let navigate = useNavigate();
-  function Signin(e) {
-    console.log(member);
-    e.preventDefault();
+  function signin() {
     if (!member.id || !member.password) {
       alert('아이디 또는 비밀번호를 입력해주세요');
       return;
@@ -14,7 +12,6 @@ function Login({ setMember, member }) {
         ...member,
       })
       .then(function ({ data }) {
-        console.log(data);
         if (!data) {
           alert('로그인실패');
           return;
@@ -25,7 +22,7 @@ function Login({ setMember, member }) {
   }
   return (
     <div>
-      <form onSubmit={Signin}>
+      <div>
         <input
           placeholder='아이디'
           onChange={({ target }) => setMember({ id: target.value })}
@@ -34,8 +31,8 @@ function Login({ setMember, member }) {
           placeholder='비밀번호'
           onChange={({ target }) => setMember({ password: target.value })}
         />
-        <button>로그인</button>
-      </form>
+        <button onClick={signin}>로그인</button>
+      </div>
       <Link to='/'>홈으로</Link>
     </div>
   );

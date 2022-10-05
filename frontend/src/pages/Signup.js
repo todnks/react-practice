@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 function Signup({ setMember, member }) {
-  function signUp(event) {
+  function signup(event) {
     event.preventDefault();
     if (!Object.values(member)) {
       alert('빈칸을 채워주세요');
@@ -20,25 +20,19 @@ function Signup({ setMember, member }) {
   }
   return (
     <div>
-      <form onSubmit={signUp}>
-        <input
-          placeholder='아이디'
-          onChange={({ target }) => setMember({ id: target.value })}
-        />
-        <input
-          placeholder='비밀번호'
-          onChange={({ target }) => setMember({ password: target.value })}
-        />
-        <input
-          placeholder='name'
-          onChange={({ target }) => setMember({ name: target.value })}
-        />
-        <input
-          placeholder='email'
-          onChange={({ target }) => setMember({ email: target.value })}
-        />
-        <input type='submit' value='회원가입' />
-      </form>
+      <input
+        placeholder='아이디'
+        onChange={({ target }) => setMember({ id: target.value })}
+      />
+      <input
+        placeholder='비밀번호'
+        onChange={({ target }) => setMember({ password: target.value })}
+      />
+      <input
+        placeholder='name'
+        onChange={({ target }) => setMember({ name: target.value })}
+      />
+      <button onClick={signup}>회원가입</button>
       <Link to='/'>홈으로</Link>
     </div>
   );
