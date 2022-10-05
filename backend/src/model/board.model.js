@@ -9,7 +9,15 @@ export default class BoardModel {
     );
     return rows;
   }
-
+  static async board({ id }) {
+    const [rows] = await pool.query(
+      `
+      SELECT * FROM board where id = ?
+      `,
+      [id]
+    );
+    return rows;
+  }
   static async write({ name, id, title, content }) {
     const rows = await pool.query(
       `
@@ -26,7 +34,6 @@ export default class BoardModel {
   }
 
   static async update({ title, content, id, idx }) {
-    console.log(this);
     const rows = await pool.query(
       `
       UPDATE board set
