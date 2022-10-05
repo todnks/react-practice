@@ -3,9 +3,10 @@ import { body } from 'express-validator';
 import BoardController from '../../controller/board.controller.js';
 const router = Router();
 
-const { list, write, update, baorddelete } = BoardController;
+const { list, write, update, boarddelete, boardView } = BoardController;
 
 router.get('/list', list);
+router.get('/view', boardView);
 router.post(
   '/write',
   body('title').isLength({ min: 1 }).withMessage('title값이'),
@@ -18,10 +19,6 @@ router.put(
   body('content').isLength({ min: 1 }).withMessage('content 값이'),
   update
 );
-router.delete(
-  '/delete',
-  body('id').isLength({ min: 1 }).withMessage('id값이'),
-  baorddelete
-);
+router.delete('/delete', boarddelete);
 
 export default router;
