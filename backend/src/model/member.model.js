@@ -23,14 +23,4 @@ export default class MemberModel {
 
     return rows;
   }
-
-  static async login({ id }) {
-    const [rows] = await pool.query(
-      `
-      SELECT * FROM member where userId = ?
-      `,
-      [id]
-    );
-    return rows;
-  }
 }
